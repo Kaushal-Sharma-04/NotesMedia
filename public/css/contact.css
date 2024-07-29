@@ -1,0 +1,13 @@
+#form-container{
+    margin: 30px auto;
+}
+
+#form-heading{
+    margin: 40px 0px;
+}
+
+#btn {
+    display: block;
+    margin: auto;
+    padding: .5rem 2.5rem;
+  }

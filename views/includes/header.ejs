@@ -1,0 +1,52 @@
+<header class="header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-xl navbar-light p-lg-0">
+            <a href="/home" class="logo">Notesmedia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="nav-list  mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/courses">Courses</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/blogs" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Blogs
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/blogs">Read Blogs</a></li>
+                            <li><a class="dropdown-item" href="#">Your Blogs</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact us</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        id="searchbox">
+                    <button class="fa fa-search  btn-outline-light" id="searchbtn" type="submit"></button>
+                </form>
+
+                <% if(!currUser) {%>
+                    <a href="/login" class="btn btn-outline-secondary mx-2 ">Login</a>
+                    <% } %>
+                        <% if (currUser) { %>
+                            <a href="/logout" class="btn btn-outline-secondary mx-2">Logout</a>
+                            <% } %>
+            </div>
+    </div>
+    </nav>
+</header>

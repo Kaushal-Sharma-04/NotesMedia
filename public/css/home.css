@@ -1,0 +1,76 @@
+#banner {
+    margin: 120px auto;
+}
+
+#banner h2 {
+    font-family: 'Ruslan Display', cursive;
+    font-weight: 400;
+    font-size: 46px;
+}
+
+.row {
+    text-align: center;
+}
+
+#m-slider img {
+    border-radius: 50%;
+    height: 200px;
+    width: 210px !important;
+    margin: 10px auto;
+}
+
+#m-slider p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+#m-slider .quotes-credit {
+    text-align: end;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.our-courses {
+    margin: 200px 0px;
+}
+
+.our-courses h2 {
+    text-align: center;
+    font-family: 'Russo One', sans-serif;
+    font-size: 2.5em;
+
+}
+
+
+.card {
+    cursor: pointer;
+    border-radius: 20px;
+    transition: transform 0.5s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+
+.card img {
+    height: 210px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.card-text {
+    color: #423a3ad6;
+
+}
+
+.our-blogs {
+    margin-bottom: 150px;
+}
+
+.our-blogs h2 {
+    text-align: center;
+    font-family: 'Russo One', sans-serif;
+    font-size: 2.5em;
+
+}

@@ -1,0 +1,71 @@
+<% layout('/layouts/boilerplate') %>
+
+    <div class="container mt-5 mb-3">
+        <h1 class="text-center">Write a New Blog</h1>
+        <form id="blogForm" action="/blogs/new" method="POST" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="blog[title]"
+                    placeholder="Please Write a catchy Title" required>
+                <div class="invalid-feedback">Please provide a title.</div>
+            </div>
+            <div class="mb-3">
+                <label for="excerpt" class="form-label">Excerpt</label>
+                <textarea class="form-control" id="excerpt" name="blog[excerpt]" rows="2"
+                    placeholder="Please write an excerpt.." required></textarea>
+                <div class="invalid-feedback" id="excerptFeedback">Excerpt should be at least 10 words.</div>
+            </div>
+            <div class="mb-3">
+                <input type="hidden" id="imageUrls" name="blog[imageUrls]">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="blog[content]" rows="10"
+                    placeholder="Please write some content.." required></textarea>
+                <div class="invalid-feedback">Please provide the content.</div>
+            </div>
+            <div class="mx-auto">
+                <button type="submit" class="btn btn-dark">Post Blog</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const cloudName = '<%= cloudName %>';
+        const uploadPreset = '<%= uploadPreset %>';
+
+        tinymce.init({
+            selector: '#content',
+            plugins: 'image fullscreen',
+            toolbar: 'undo redo | link image | fullscreen',
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function () {
+                    var file = this.files[0];
+                    var formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('upload_preset', uploadPreset);
+
+                    fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            cb(data.secure_url, { title: file.name });
+
+                            // Store the image URL in a hidden input field
+                            let imageUrlsInput = document.getElementById('imageUrls');
+                            imageUrlsInput.value += data.secure_url + ';';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                };
+                input.click();
+            }
+        });
+    </script>

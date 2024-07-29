@@ -1,0 +1,29 @@
+<% layout("/layouts/boilerplate") %>
+
+  <body>
+    <!-- courses section  -->
+    <section class="our-courses">
+      <h2>Our Courses</h2>
+
+      <div class="container">
+        <div class="row  gy-3 my-3">
+          <% for(let course of allCourses){ %>
+            <div class="col-sm-6 col-md-6 col-lg-3 ">
+              <div class="card">
+                <img src="<%= course.image.url %>" class="card-img-top" alt="<%= course.title %>">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= course.title %>
+                  </h5>
+                  <p class="card-text">
+                    <%= course.description %>
+                  </p>
+                  <a href="/courses/<%= course._id %>" class="btn btn-outline-dark">Click Here</a>
+                </div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+    </section>
+  </body>

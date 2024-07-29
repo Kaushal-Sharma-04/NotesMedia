@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate") %>
+    <div class="mt-4">
+        <h1 class="mb-4 auth-head">Login</h1>
+        <form method="post" action="/login" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            </div>
+            <div class=" text-center">
+                <button class="btn btn-warning">Login</button>
+                <a href="/auth/google" class="btn btn-danger"><i class="fa-brands fa-google px-2"></i>Login with
+                    Google</a>
+            </div>
+            <div class="text-center">
+                <p>or</p>
+                <span class="text-dark">if you don't have an account</span> &nbsp;&nbsp;
+                <a href="/signup" class="btn btn-dark">Signup</a>
+            </div>
+        </form>
+    </div>
