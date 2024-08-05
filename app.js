@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
+const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 const User = require("./models/users");
 const userRouter = require("./routes/users");
@@ -56,8 +57,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use(flash());
+
 // Middleware to set currUser in response locals
 app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   next();
 });
@@ -72,7 +77,9 @@ app.use("/", userRouter);
 app.use("/", courseRouter);
 // app.use("/upload", uploadRoutes);
 app.use("/", blogsRouter);
-
+app.get("/contact", (req, res) => {
+  res.render("contact.ejs");
+});
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });

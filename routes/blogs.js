@@ -20,11 +20,25 @@ router.get("/blogs/new", isLoggedIn, (req, res) => {
 });
 
 router.get(
+  "/user/blogs",
+  isLoggedIn,
+  wrapAsync(async (req, res) => {
+    // Fetch blogs authored by the logged-in user
+    const userBlogs = await Blog.find({ author: req.user._id });
+    res.render("blogs/userBlog.ejs", { userBlogs });
+  })
+);
+
+router.get(
   "/blogs/:id",
   isLoggedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate("author");
+    if (!blog) {
+      req.flash("error", "Cannot find that blog!");
+      return res.redirect("/blogs");
+    }
     res.render("blogs/showBlog.ejs", { blog });
   })
 );
@@ -34,6 +48,7 @@ router.post(
   upload.array("images"),
   wrapAsync(async (req, res) => {
     const newBlog = new Blog(req.body.blog);
+    newBlog.author = req.user._id;
 
     // Process images uploaded via TinyMCE
     const imageUrls = req.body.blog.imageUrls
@@ -53,6 +68,28 @@ router.post(
     }
 
     await newBlog.save();
+    res.redirect("/blogs");
+  })
+);
+
+router.get(
+  "/blogs/:id/edit",
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const blog = await Blog.findById(id);
+    res.render("blogs/editBlog.ejs", {
+      blog,
+      cloudName: process.env.CLOUD_NAME,
+      uploadPreset: process.env.UPLOAD_PRESET,
+    });
+  })
+);
+
+router.delete(
+  "/blogs/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Blog.findByIdAndDelete(id);
     res.redirect("/blogs");
   })
 );

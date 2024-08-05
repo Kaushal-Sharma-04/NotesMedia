@@ -12,6 +12,7 @@
         rel="stylesheet">
     <script
         src="https://cdn.tiny.cloud/1/e4lk4rz7h4f7xiws8l7shaz89w6nrecyc1zhjv3jdjmi33un/tinymce/6/tinymce.min.js"></script>
+    <script src="/js/blogFormValidation.js"></script>
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/blogs.css">
@@ -23,14 +24,13 @@
     <%- include("../includes/header.ejs") %>
 
         <div class="container">
-            <%- body %>
+            <%- include("../includes/flash.ejs") %>
+                <%- body %>
         </div>
 
         <%- include("../includes/footer.ejs") %>
 
             <script src="/js/bootstrap.bundle.min.js"></script>
-            <script src="/js/formValidation.js"></script>
-
 </body>
 
 </html>

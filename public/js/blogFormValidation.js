@@ -1,39 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Attach event listener to the form submission
   document
     .getElementById("blogForm")
     .addEventListener("submit", function (event) {
+      // Select form elements
       const excerpt = document.getElementById("excerpt");
       const excerptValue = excerpt.value.trim();
       const excerptFeedback = document.getElementById("excerptFeedback");
 
-      // Calculate word count
+      // Calculate the word count
       const wordCount = excerptValue ? excerptValue.split(/\s+/).length : 0;
 
-      console.log("Excerpt Value:", excerptValue); // Debug line
-      console.log("Word Count:", wordCount); // Debug line
+      // Initialize form validity
+      let formIsValid = true;
 
-      // Validate the excerpt
+      // Validate the excerpt (minimum 10 words)
       if (wordCount < 10) {
-        event.preventDefault();
+        // Prevent form submission
+        formIsValid = false;
         excerpt.classList.add("is-invalid");
         excerptFeedback.style.display = "block";
       } else {
+        // Valid excerpt case
         excerpt.classList.remove("is-invalid");
         excerptFeedback.style.display = "none";
 
-        // Truncate excerpt if more than 15 words
-        if (wordCount > 11) {
-          const words = excerptValue.split(/\s+/).slice(0, 11);
-          excerpt.value = words.join(" ") + "...";
-        }
+        // No need to truncate `excerpt.value` for storage
+        // Just ensure full text is stored in the database
       }
 
-      // Validate the form
-      if (!this.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
+      // If the form is not valid, prevent submission
+      if (!formIsValid) {
+        event.preventDefault(); // Stop form submission
+        event.stopPropagation(); // Stop further event propagation
       }
 
+      // Add Bootstrap validation classes
       this.classList.add("was-validated");
     });
 });
