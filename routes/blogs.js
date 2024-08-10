@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Blog = require("../models/blogs");
 const wrapAsync = require("../utils/wrapAsync");
-const { isLoggedIn } = require("../utils/middleware");
+const { isLoggedIn, isAuthor } = require("../utils/middleware");
 const { storage } = require("../cloudinaryConfig");
 const multer = require("multer");
 const upload = multer({ storage });
@@ -34,7 +34,9 @@ router.get(
   isLoggedIn,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const blog = await Blog.findById(id).populate("author");
+    const blog = await Blog.findById(id)
+      .populate({ path: "comments", populate: { path: "author" } })
+      .populate("author");
     if (!blog) {
       req.flash("error", "Cannot find that blog!");
       return res.redirect("/blogs");
@@ -45,6 +47,7 @@ router.get(
 
 router.post(
   "/blogs/new",
+  isLoggedIn,
   upload.array("images"),
   wrapAsync(async (req, res) => {
     const newBlog = new Blog(req.body.blog);
@@ -74,6 +77,8 @@ router.post(
 
 router.get(
   "/blogs/:id/edit",
+  isLoggedIn,
+  isAuthor,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const blog = await Blog.findById(id);
@@ -85,8 +90,59 @@ router.get(
   })
 );
 
+// Handle updating a blog
+router.put(
+  "/blogs/:id",
+  isLoggedIn,
+  isAuthor,
+  upload.array("images"),
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const updatedBlog = req.body.blog;
+
+    // Find the existing blog
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+      req.flash("error", "Cannot find that blog!");
+      return res.redirect("/blogs");
+    }
+
+    // Process images uploaded via TinyMCE
+    const imageUrls = req.body.blog.imageUrls
+      ? req.body.blog.imageUrls.split(";").filter((url) => url !== "")
+      : [];
+
+    // Update the images from the hidden input field
+    blog.images = imageUrls.map((url) => ({
+      url,
+      filename: url.split("/").pop(),
+    }));
+
+    // Add the images from the file upload (if any)
+    if (req.files && req.files.length) {
+      req.files.forEach((file) => {
+        blog.images.push({ url: file.path, filename: file.filename });
+      });
+    }
+
+    // Update other blog fields
+    blog.title = updatedBlog.title;
+    blog.excerpt = updatedBlog.excerpt;
+    blog.content = updatedBlog.content;
+
+    // Save the updated blog
+    await blog.save();
+
+    // Redirect to the updated blog page
+    res.redirect(`/blogs/${id}`);
+  })
+);
+
 router.delete(
   "/blogs/:id",
+  isLoggedIn,
+  isAuthor,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Blog.findByIdAndDelete(id);

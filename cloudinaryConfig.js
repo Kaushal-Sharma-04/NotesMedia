@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "notesmedia_DEV",
-    allowedFormats: ["png", "jpg", "jpeg"],
+    allowedFormats: ["png", "jpg", "jpeg", "gif"],
   },
 });
 

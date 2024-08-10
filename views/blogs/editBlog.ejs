@@ -25,7 +25,8 @@
                 <div class="invalid-feedback" id="excerptFeedback">Excerpt should be at least 10 words.</div>
             </div>
             <div class="mb-3">
-                <input type="hidden" id="imageUrls" name="blog[imageUrls]">
+                <input type="hidden" id="imageUrls" name="blog[imageUrls]"
+                    value="<%= blog.images.map(img => img.url).join(';') %>">
                 <label for="content" class="form-label">Content</label>
                 <textarea class="form-control" id="content" name="blog[content]" rows="10"
                     placeholder="Please write some content.." required><%= blog.content %></textarea>

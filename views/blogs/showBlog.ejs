@@ -15,11 +15,8 @@
             </p>
             <hr>
             <div class="content">
-                <% if (blog.images && blog.images.length> 0) { %>
-                    <img src="<%= blog.images[0].url %>" alt="Blog Image" class="img-fluid">
-                    <% } %>
+                <%- blog.content %>
             </div>
-            <%- blog.content %>
         </div>
         <% if(currUser && blog.author._id.equals(currUser._id)) { %>
             <div class="d-flex mb-2">
@@ -29,4 +26,49 @@
                 </form>
             </div>
             <% } %>
+
+                <hr>
+                <div class="col">
+                    <% if(currUser) { %>
+                        <h3>Write a Comment</h3>
+                        <form action="/blogs/<%= blog._id %>/comments" method="POST" novalidate
+                            class="needs-validation">
+                            <div class="mb-3 text-start">
+                                <label for="comment" class="form-label text-start">Comments</label>
+                                <textarea name="comment[comment]" id="comment" cols="30" rows="5" class="form-control"
+                                    placeholder="Write a comment..." required></textarea>
+                                <div class="invalid-feedback">Please add some review.</div>
+                                <button class="btn btn-outline-dark mt-2">Submit</button>
+                            </div>
+                        </form>
+                        <% } %>
+                            <% if(blog.comments.length>0){ %>
+                                <hr>
+                                <div class="row">
+                                    <h3>All Comments</h3>
+                                    <% for(comment of blog.comments) { %>
+                                        <div class="card col-5 ms-3 mb-3">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    @<%= comment.author.username %>
+                                                </h5>
+                                                <p class="card-text">
+                                                    <%=comment.comment %>
+                                                </p>
+                                                <small class="text-muted">
+                                                    <%= comment.createdAt.toDateString() %>
+                                                </small>
+                                                <% if(currUser && comment.author._id.equals(currUser._id)) { %>
+                                                    <form
+                                                        action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                                        method="POST" class="mb-3">
+                                                        <button class="btn btn-sm btn-dark">Delete</button>
+                                                    </form>
+                                                    <% } %>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <% } %>
+                </div>
     </div>

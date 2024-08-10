@@ -7,6 +7,7 @@ const router = express.Router();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const wrapAsync = require("../utils/wrapAsync");
+const { saveRedirectUrl } = require("../utils/middleware");
 const User = require("../models/users");
 
 passport.use(
@@ -60,9 +61,12 @@ router.get(
 
 router.get(
   "/auth/google/callback",
+  saveRedirectUrl,
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
-    res.redirect("/home");
+    req.flash("success", "Welcome back to NotesMedia!");
+    let redirectUrl = res.locals.redirectUrl || "/home";
+    res.redirect(redirectUrl);
   }
 );
 
@@ -72,10 +76,16 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/login",
-  })
+  }),
+  (req, res) => {
+    req.flash("success", "Welcome back to NotesMedia!");
+    let redirectUrl = res.locals.redirectUrl || "/home";
+    res.redirect(redirectUrl);
+  }
 );
 
 router.get("/signup", (req, res) => {

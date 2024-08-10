@@ -17,7 +17,7 @@ const User = require("./models/users");
 const userRouter = require("./routes/users");
 const courseRouter = require("./routes/courses");
 const blogsRouter = require("./routes/blogs");
-const uploadRoutes = require("./routes/upload");
+const commentsRouter = require("./routes/comments");
 const Course = require("./models/courses");
 const Blog = require("./models/blogs");
 
@@ -75,8 +75,8 @@ app.get("/home", async (req, res) => {
 
 app.use("/", userRouter);
 app.use("/", courseRouter);
-// app.use("/upload", uploadRoutes);
 app.use("/", blogsRouter);
+app.use("/", commentsRouter);
 app.get("/contact", (req, res) => {
   res.render("contact.ejs");
 });
