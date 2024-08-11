@@ -10,7 +10,8 @@
 
     <div class="container mt-5 mb-3">
         <h1 class="text-center">Write a New Blog</h1>
-        <form id="blogForm" action="/blogs/new" method="POST" enctype="multipart/form-data" novalidate>
+        <form id="blogForm" action="/blogs/new" method="POST" enctype="multipart/form-data" novalidate
+            class="needs-validation">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="blog[title]"

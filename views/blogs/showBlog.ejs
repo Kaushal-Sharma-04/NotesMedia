@@ -31,13 +31,13 @@
                 <div class="col">
                     <% if(currUser) { %>
                         <h3>Write a Comment</h3>
-                        <form action="/blogs/<%= blog._id %>/comments" method="POST" novalidate
-                            class="needs-validation">
+                        <form action="/blogs/<%= blog._id %>/comments" method="POST" class="needs-validation"
+                            novalidate>
                             <div class="mb-3 text-start">
-                                <label for="comment" class="form-label text-start">Comments</label>
+                                <label for="comment" class="form-label">Comments</label>
                                 <textarea name="comment[comment]" id="comment" cols="30" rows="5" class="form-control"
                                     placeholder="Write a comment..." required></textarea>
-                                <div class="invalid-feedback">Please add some review.</div>
+                                <div class="invalid-feedback">Please write comment.</div>
                                 <button class="btn btn-outline-dark mt-2">Submit</button>
                             </div>
                         </form>

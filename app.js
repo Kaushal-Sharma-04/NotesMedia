@@ -20,6 +20,7 @@ const blogsRouter = require("./routes/blogs");
 const commentsRouter = require("./routes/comments");
 const Course = require("./models/courses");
 const Blog = require("./models/blogs");
+const { isLoggedIn } = require("./utils/middleware");
 
 const dbUrl = "mongodb://127.0.0.1:27017/notesmedia";
 
@@ -77,7 +78,7 @@ app.use("/", userRouter);
 app.use("/", courseRouter);
 app.use("/", blogsRouter);
 app.use("/", commentsRouter);
-app.get("/contact", (req, res) => {
+app.get("/contact", isLoggedIn, (req, res) => {
   res.render("contact.ejs");
 });
 app.all("*", (req, res, next) => {
