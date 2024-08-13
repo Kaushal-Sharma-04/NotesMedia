@@ -9,8 +9,10 @@ router.post(
   "/blogs/:id/comments",
   isLoggedIn,
   wrapAsync(async (req, res) => {
+    console.log(req);
     let blog = await Blog.findById(req.params.id);
     let newComment = new Comment(req.body.comment);
+    newComment.blog = blog._id;
     newComment.author = req.user._id;
     blog.comments.push(newComment);
 

@@ -144,8 +144,9 @@ router.delete(
   isLoggedIn,
   isAuthor,
   wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Blog.findByIdAndDelete(id);
+    const { id } = req.params;
+    await Blog.findByIdAndDelete(id); // This triggers the pre-hook
+    req.flash("success", "Blog and associated comments deleted successfully");
     res.redirect("/blogs");
   })
 );
