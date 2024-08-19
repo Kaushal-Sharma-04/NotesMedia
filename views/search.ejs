@@ -1,0 +1,20 @@
+<% layout('/layouts/boilerplate') %>
+
+    <h1>Search Results for "<%= query %>"</h1>
+
+    <% if (results.length> 0) { %>
+        <ul>
+            <% results.forEach(result=> { %>
+                <li>
+                    <h2><a href="/<%= result.type.toLowerCase()+'s' %>/<%= result._id %>">
+                            <%= result.title %>
+                        </a> <small>(<%= result.type %>)</small></h2>
+                    <p>
+                        <%= result.description %>
+                    </p>
+                </li>
+                <% }) %>
+        </ul>
+        <% } else { %>
+            <p>No results found for "<%= query %>".</p>
+            <% } %>

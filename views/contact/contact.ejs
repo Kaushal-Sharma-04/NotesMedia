@@ -1,0 +1,32 @@
+<% layout("/layouts/boilerplate") %>
+
+  <body>
+
+    <!-- contact form  -->
+    <div class="container" id="form-container">
+      <h2 class="text-center" id="form-heading">Contact-Us</h2>
+      <form class="row g-3" action="/contact-submit" method="POST">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Your Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name..." name="name" required>
+        </div>
+        <div class="col-md-6">
+          <label for="phone_number" class="form-label">Phone Number</label>
+          <input type="number" class="form-control" id="phone_number" placeholder="Enter your phone number..."
+            name="phone_number">
+        </div>
+        <div class="col-md-12">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your e-mail..." name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="query" class="form-label">Your Question</label>
+          <textarea class="form-control" id="query" rows="3" placeholder="Enter your Question..." name="query"
+            required></textarea>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" id="btn">Submit</button>
+        </div>
+      </form>
+    </div>
+  </body>

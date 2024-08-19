@@ -1,0 +1,33 @@
+<% layout("/layouts/boilerplate") %>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="text-center p-4">
+            <h1 class="display-4 mb-3 text-dark">Coming Soon!</h1>
+            <p class="lead text-muted">We're working hard to bring this page to you soon. Stay tuned!</p>
+            <div class="display-4 text-danger mt-4" id="countdown">
+                Launching in
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer
+        const countdownElement = document.getElementById('countdown');
+        const launchDate = new Date("Sep 30, 2024 12:00:00").getTime();
+
+        const countdownTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const timeLeft = launchDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `<p class="fs-3">Launching in</p>${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (timeLeft < 0) {
+                clearInterval(countdownTimer);
+                countdownElement.innerHTML = "We have launched!";
+            }
+        }, 1000);
+    </script>

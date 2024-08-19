@@ -15,9 +15,11 @@ const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 const User = require("./models/users");
 const userRouter = require("./routes/users");
+const forgetPassRouter = require("./routes/forgetPass");
 const courseRouter = require("./routes/courses");
 const blogsRouter = require("./routes/blogs");
 const commentsRouter = require("./routes/comments");
+const contactRouter = require("./routes/contactUs");
 const Course = require("./models/courses");
 const Blog = require("./models/blogs");
 const { isLoggedIn } = require("./utils/middleware");
@@ -75,11 +77,14 @@ app.get("/home", async (req, res) => {
 });
 
 app.use("/", userRouter);
+app.use("/", forgetPassRouter);
 app.use("/", courseRouter);
 app.use("/", blogsRouter);
 app.use("/", commentsRouter);
-app.get("/contact", isLoggedIn, (req, res) => {
-  res.render("contact.ejs");
+app.use("/", contactRouter);
+
+app.get("/coming-soon", (req, res) => {
+  res.render("comingSoon.ejs");
 });
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));

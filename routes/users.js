@@ -80,6 +80,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/login",
+    failureFlash: true,
   }),
   (req, res) => {
     req.flash("success", "Welcome back to NotesMedia!");

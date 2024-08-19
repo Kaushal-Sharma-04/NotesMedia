@@ -3,6 +3,7 @@ const router = express.Router();
 const Blog = require("../models/blogs");
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isAuthor } = require("../utils/middleware");
+const Course = require("../models/courses");
 const { storage } = require("../cloudinaryConfig");
 const multer = require("multer");
 const upload = multer({ storage });
@@ -44,6 +45,43 @@ router.get(
     res.render("blogs/showBlog.ejs", { blog });
   })
 );
+
+// Search Route
+router.get("/search", async (req, res) => {
+  try {
+    const searchQuery = req.query.q;
+    if (!searchQuery) {
+      return res.render("search", { results: [], query: "" });
+    }
+
+    // Search in Blogs
+    const blogResults = await Blog.find({
+      $or: [
+        { title: { $regex: searchQuery, $options: "i" } },
+        { description: { $regex: searchQuery, $options: "i" } },
+      ],
+    });
+
+    // Search in Courses
+    const courseResults = await Course.find({
+      $or: [
+        { title: { $regex: searchQuery, $options: "i" } },
+        { description: { $regex: searchQuery, $options: "i" } },
+      ],
+    });
+
+    // Combine results
+    const results = [
+      ...blogResults.map((item) => ({ type: "Blog", ...item._doc })),
+      ...courseResults.map((item) => ({ type: "Course", ...item._doc })),
+    ];
+
+    res.render("search.ejs", { results, query: searchQuery });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
 
 router.post(
   "/blogs/new",
