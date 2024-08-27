@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
-const initData = require("./blogData");
-const Blog = require("../models/blogs");
+const initData = require("./data");
+const Course = require("../models/courses");
+require("dotenv");
 
-const dbUrl = "mongodb://127.0.0.1:27017/notesmedia";
+const dbUrl = "mongodb+srv://kaush004:euerhoAMBMYsGbOy@cluster0.ci6aooq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 async function connectToDatabase() {
   try {
+    console.log(dbUrl);
     await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
     console.log("Connected to MongoDB");
 
     await initializeDatabase();
@@ -23,8 +26,8 @@ async function connectToDatabase() {
 
 async function initializeDatabase() {
   try {
-    await Blog.deleteMany();
-    await Blog.insertMany(initData.data);
+    await Course.deleteMany();
+    await Course.insertMany(initData.data);
     console.log("Data initialized successfully");
   } catch (err) {
     console.error("Error initializing data:", err);
