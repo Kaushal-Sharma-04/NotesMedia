@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const initData = require("./data");
 const Course = require("../models/courses");
 
-
 const dbUrl = "";
 
 async function connectToDatabase() {

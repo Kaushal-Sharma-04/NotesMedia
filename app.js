@@ -104,6 +104,10 @@ app.use("/", contactRouter);
 app.get("/coming-soon", (req, res) => {
   res.render("comingSoon.ejs");
 });
+
+app.get("/", (req, res) => {
+  res.redirect("/home");
+});
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });
