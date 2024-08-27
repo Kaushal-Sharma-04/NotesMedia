@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const initData = require("./data");
 const Course = require("../models/courses");
-require("dotenv");
 
-const dbUrl = "mongodb+srv://kaush004:euerhoAMBMYsGbOy@cluster0.ci6aooq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const dbUrl = "";
 
 async function connectToDatabase() {
   try {
