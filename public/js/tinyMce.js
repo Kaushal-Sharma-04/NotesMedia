@@ -3,8 +3,12 @@ const uploadPreset = window.uploadPreset;
 
 tinymce.init({
   selector: "#content",
-  plugins: "image fullscreen",
-  toolbar: "undo redo | link image | fullscreen",
+  mobile: {
+    menubar: true,
+  },
+  plugins: "image fullscreen code",
+  toolbar: "undo redo | formatselect | link image | fullscreen | code",
+  toolbar_sticky: true,
   image_title: true,
   automatic_uploads: true,
   file_picker_types: "image",
@@ -26,12 +30,17 @@ tinymce.init({
         .then((data) => {
           cb(data.secure_url, { title: file.name });
 
-          // Store the image URL in a hidden input field
+          // Optionally, handle the URL in a hidden input field
           let imageUrlsInput = document.getElementById("imageUrls");
-          imageUrlsInput.value += data.secure_url + ";";
+          if (imageUrlsInput) {
+            imageUrlsInput.value += data.secure_url + ";";
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          alert(
+            "An error occurred while uploading the image. Please try again."
+          );
         });
     };
     input.click();
