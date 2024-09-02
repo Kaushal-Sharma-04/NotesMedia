@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
@@ -24,7 +22,9 @@ const contactRouter = require("./routes/contactUs");
 const Course = require("./models/courses");
 const Blog = require("./models/blogs");
 
-const dbUrl = process.env.ATLAS_DB_URL;
+const dbUrl = "mongodb://127.0.0.1:27017/School";
+
+// const dbUrl = process.env.ATLAS_DB_URL;
 
 main()
   .then(() => {

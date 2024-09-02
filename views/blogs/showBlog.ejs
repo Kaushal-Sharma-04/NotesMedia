@@ -14,7 +14,7 @@
             <p>Posted on <%= blog.createdAt.toDateString() %>
             </p>
             <hr>
-            <div class="content container">
+            <div class="content">
                 <%- blog.content %>
             </div>
         </div>
@@ -29,7 +29,7 @@
 
                 <hr>
                 <div class="col">
-                    <% if(currUser) { %>
+                    <% if(currUser && !blog.author) { %>
                         <h3>Write a Comment</h3>
                         <form action="/blogs/<%= blog._id %>/comments" method="POST" class="needs-validation"
                             novalidate>
