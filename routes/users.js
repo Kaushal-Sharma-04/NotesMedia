@@ -26,23 +26,22 @@ passport.use(
         }
 
         // Check if email already exists
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
-          // If the email exists, log the user in with the existing account
+          // If email exists, log the user in with the existing account
           return done(null, existingUser);
         }
 
         // Create a new user if not found
         const newUser = new User({
           googleId: profile.id,
-          email: email,
+          email,
           username: profile.displayName,
         });
 
         await newUser.save();
         return done(null, newUser);
       } catch (err) {
-        // Log the error for debugging purposes
         console.error(err);
         return done(err);
       }
@@ -76,7 +75,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     req.flash("success", "Welcome back to NotesMedia!");
-    let redirectUrl = res.locals.redirectUrl || "/home";
+    const redirectUrl = res.locals.redirectUrl || "/home";
     res.redirect(redirectUrl);
   }
 );
@@ -96,7 +95,7 @@ router.post(
   }),
   (req, res) => {
     req.flash("success", "Welcome back to NotesMedia!");
-    let redirectUrl = res.locals.redirectUrl || "/home";
+    const redirectUrl = res.locals.redirectUrl || "/home";
     res.redirect(redirectUrl);
   }
 );
@@ -113,7 +112,7 @@ router.post(
 
     // Check if email or username already exists
     const existingUser = await User.findOne({
-      $or: [{ email: email }, { username: username }],
+      $or: [{ email }, { username }],
     });
 
     if (existingUser) {
@@ -125,12 +124,14 @@ router.post(
     const newUser = new User({ username, email });
 
     // Register the user with passport-local-mongoose
-    User.register(newUser, password, (err, user) => {
+    User.register(newUser, password, (err) => {
       if (err) {
         console.error(err);
-        return res.render("users/signup.ejs", { error: err.message });
+        req.flash("error", err.message);
+        return res.redirect("/signup");
       }
       passport.authenticate("local")(req, res, () => {
+        req.flash("success", "Welcome to NotesMedia!");
         res.redirect("/home");
       });
     });
