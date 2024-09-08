@@ -49,7 +49,7 @@ router.get(
 // Search Route
 router.get(
   "/search",
-  wrapasync(async (req, res) => {
+  wrapAsync(async (req, res) => {
     const searchQuery = req.query.q;
     if (!searchQuery) {
       return res.render("search", { results: [], query: "" });
