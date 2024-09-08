@@ -10,6 +10,7 @@ const wrapAsync = require("../utils/wrapAsync");
 const { saveRedirectUrl } = require("../utils/middleware");
 const User = require("../models/users");
 
+// Google OAuth2 Strategy
 passport.use(
   new GoogleStrategy(
     {
@@ -24,14 +25,22 @@ passport.use(
           return done(new Error("No email found in Google profile"));
         }
 
-        // Find or create the user
-        const user = await User.findOneAndUpdate(
-          { googleId: profile.id },
-          { googleId: profile.id, email: email, username: profile.displayName },
-          { new: true, upsert: true }
-        );
+        // Check if email already exists
+        const existingUser = await User.findOne({ email: email });
+        if (existingUser) {
+          // If the email exists, log the user in with the existing account
+          return done(null, existingUser);
+        }
 
-        return done(null, user);
+        // Create a new user if not found
+        const newUser = new User({
+          googleId: profile.id,
+          email: email,
+          username: profile.displayName,
+        });
+
+        await newUser.save();
+        return done(null, newUser);
       } catch (err) {
         // Log the error for debugging purposes
         console.error(err);
@@ -41,6 +50,7 @@ passport.use(
   )
 );
 
+// Passport serialization and deserialization
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -54,6 +64,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+// Google OAuth routes
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -70,6 +81,7 @@ router.get(
   }
 );
 
+// Login routes
 router.get("/login", (req, res) => {
   res.render("users/login.ejs");
 });
@@ -89,6 +101,7 @@ router.post(
   }
 );
 
+// Signup route
 router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
 });
@@ -98,7 +111,17 @@ router.post(
   wrapAsync(async (req, res) => {
     const { username, email, password } = req.body;
 
-    // Create a new User instance but don't save it yet
+    // Check if email or username already exists
+    const existingUser = await User.findOne({
+      $or: [{ email: email }, { username: username }],
+    });
+
+    if (existingUser) {
+      req.flash("error", "Email or Username already exists.");
+      return res.redirect("/signup");
+    }
+
+    // Create a new User instance
     const newUser = new User({ username, email });
 
     // Register the user with passport-local-mongoose
@@ -114,6 +137,7 @@ router.post(
   })
 );
 
+// Logout route
 router.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {

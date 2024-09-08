@@ -43,6 +43,10 @@
     <section class="our-courses my-2">
       <h2>Our Courses</h2>
 
+      <div class="d-flex justify-content-end align-items-center">
+        <a href="/courses" class="btn">More Courses &nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
       <div class="container">
         <div class="row  gy-3 my-3">
           <% let courseToShow=allCourses.slice(0,4); %>
@@ -57,7 +61,7 @@
                     <p class="card-text card-text-style">
                       <%= course.description %>
                     </p>
-                    <a href="/courses" class="btn btn-outline-dark">More Courses</a>
+                    <a href="/courses/<%= course._id %>" class="btn btn-outline-dark">Watch Course</a>
                   </div>
                 </div>
               </div>
@@ -71,6 +75,9 @@
 
     <section class="our-blogs my-2">
       <h2>Our Blogs</h2>
+      <div class="d-flex justify-content-end align-items-center">
+        <a href="/blogs" class="btn">More Blogs &nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+      </div>
       <div class="container">
         <div class="row  gy-3 my-3">
           <% let blogsToShow=allBlogs.slice(0,4); %>

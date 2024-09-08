@@ -47,8 +47,9 @@ router.get(
 );
 
 // Search Route
-router.get("/search", async (req, res) => {
-  try {
+router.get(
+  "/search",
+  wrapasync(async (req, res) => {
     const searchQuery = req.query.q;
     if (!searchQuery) {
       return res.render("search", { results: [], query: "" });
@@ -77,11 +78,8 @@ router.get("/search", async (req, res) => {
     ];
 
     res.render("search.ejs", { results, query: searchQuery });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server Error");
-  }
-});
+  })
+);
 
 router.post(
   "/blogs/new",
