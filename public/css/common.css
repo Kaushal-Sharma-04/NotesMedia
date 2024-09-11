@@ -67,16 +67,15 @@ body {
 
 .nav-link {
   font-size: 1.2em;
-  color: rgb(63, 60, 60);
+  color: #000;
   margin-right: 10px;
   transition: all 0.5s;
+  opacity: 0.7;
 }
 
 .nav-link:hover {
-  background-color: rgba(199, 81, 2, 0.856);
-  color: white;
-  padding: 7px 20px;
-  border-radius: 15px;
+  color: #000;
+  opacity: 1;
 }
 
 #searchbox {
