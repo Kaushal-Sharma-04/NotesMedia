@@ -13,81 +13,73 @@ const courses = [
     description:
       "Learn data analysis, visualization, and machine learning with Python and R.",
     image: {
-      url: "https://www.datasciencecentral.com/wp-content/uploads/2021/06/8880f973fba5e644c5f7b384947dc764.png",
+      url: "https://insidebigdata.com/wp-content/uploads/2019/04/DataScience_shutterstock_1054542323.jpg",
     },
-    videos_id: "PL9ooVrP1hQOGwdJx1wuThslwYkKYYxA2W",
+    videos_id: "PLWKjhJtqVAblQe2CCWqV4Zy3LY01Z8aF1",
   },
   {
     title: "Machine Learning",
     description:
       "Understand the principles of machine learning, algorithms, and deep learning.",
     image: {
-      url: "https://cdn.analyticsvidhya.com/wp-content/uploads/2021/06/machine-learning.jpeg",
+      url: "https://s40424.pcdn.co/in/wp-content/uploads/2023/03/types-of-machine-learning.jpg.optimal.jpg",
     },
-    videos_id: "PLu0W_9lII9aiL0kysYlfSOUgY5rNlOhUd",
+    videos_id: "PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe",
   },
   {
     title: "Cloud Computing",
     description:
       "Get hands-on experience with cloud services and deployment on AWS, Azure, and Google Cloud.",
     image: {
-      url: "https://i0.wp.com/www.datasciencecentral.com/wp-content/uploads/2021/06/6769864857.png?resize=600%2C400&ssl=1",
+      url: "http://4.bp.blogspot.com/-VUh4P9IAaIs/Uzmr30k4AhI/AAAAAAAABRo/3d-hslTNsIU/s1600/cloud.jpg",
     },
-    videos_id: "PLf7kMgKiWmKIFNh4xHwuowbV7W3U1-MkG",
+    videos_id: "PLEiEAq2VkUUIJ3o1tehvtux0_Ynf42CBN",
   },
   {
     title: "Cybersecurity",
     description:
       "Learn the fundamentals of cybersecurity, including network security, encryption, and ethical hacking.",
     image: {
-      url: "https://www.malwarebytes.com/blog/images/2022/02/cybersecurity.jpg",
+      url: "https://www.leapit.co.uk/wp-content/uploads/2019/11/Cyber-Security-Importance-1080x675.jpeg",
     },
-    videos_id: "PLh3I78L-jSOlaFQoqScDNjcjAksL5Mf9h",
+    videos_id: "PL9ooVrP1hQOGPQVeapGsJCktzIO4DtI4_",
   },
   {
     title: "Artificial Intelligence",
     description:
       "Explore the world of AI, covering neural networks, natural language processing, and robotics.",
     image: {
-      url: "https://miro.medium.com/v2/resize:fit:1200/1*oUe0xiyhPDE29XkvE6fqXg.jpeg",
+      url: "https://mechomotive.com/wp-content/uploads/2021/07/Top-5-Trends-In-Artificial-Intelligence-That-May-Dominate-2020.png",
     },
-    videos_id: "PLh3I78L-jSOk5ngIVIqYV3B8axh1XgzyJ",
+    videos_id: "PL9ooVrP1hQOGHNaCT7_fwe9AabjZI1RjI",
   },
   {
     title: "Blockchain Development",
     description:
       "Dive into blockchain technology, smart contracts, and cryptocurrency development.",
     image: {
-      url: "https://www.investopedia.com/thmb/g_lftciOe8LkkFJ8WJuj4yzRnp4=/2121x1414/filters:fill(auto,1)/GettyImages-929982982-2-7a8a6476824e48d3b6d4c6a807e8c389.jpg",
+      url: "https://the-tech-trend.com/wp-content/uploads/2021/11/A-Beginners-Guide-to-Blockchain-Development-1024x507.jpg",
     },
-    videos_id: "PLu0W_9lII9ajN2qJyzfkWB3wy9phn8s66",
+    videos_id: "PLR0uCBk15bq96j_R_cS1Rwg96rfDAfCmM",
   },
-  {
-    title: "DevOps",
-    description:
-      "Learn the tools and practices for continuous integration, delivery, and deployment.",
-    image: {
-      url: "https://img.redbull.com/images/c_limit,w_1500,h_1000,f_auto,q_auto/redbullcom/2020/4/27/d4k4rml5nvg6azazpbxa/devops-engineering-tools",
-    },
-    videos_id: "PL5r0L7GhDX5U3XdgQbbxFG2qOMnVXMjVi",
-  },
+
   {
     title: "Game Development",
     description:
       "Create 2D and 3D games using Unity, Unreal Engine, and C# programming.",
     image: {
-      url: "https://www.educative.io/v2api/editorpage/6326707775764480/image/6352699533922304",
+      url: "https://tse4.mm.bing.net/th?id=OIP.TWXpOAWn3OYyRhy39jsOzgHaFH&pid=Api&P=0&h=220",
     },
-    videos_id: "PL1kB1kVKM-4aa6L1gjYqYnl-jVylM6gbZ",
+    videos_id: "PLfAJSU55p-wsrvXO6MplTpKpQueW6UqJ4",
   },
   {
     title: "UI/UX Design",
     description:
       "Master the art of user interface and user experience design with tools like Figma and Adobe XD.",
     image: {
-      url: "https://www.springboard.com/blog/wp-content/uploads/2020/07/ui-ux-1024x512.jpg",
+      url: "https://s3-alpha.figma.com/hub/file/2942566861/7e3aaade-4be8-47a8-aa6c-fe6f0c220316-cover.png",
     },
-    videos_id: "PLb7q7zdHO_D3EvsffEfMojJYUXwJTr4q9",
+    videos_id: "PLpKyNBYcYNJec4bUTVZUqxBQF5ezd96RT",
   },
 ];
 

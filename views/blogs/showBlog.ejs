@@ -29,7 +29,7 @@
 
                 <hr>
                 <div class="col">
-                    <% if(currUser && !blog.author) { %>
+                    <% if(currUser) { %>
                         <h3>Write a Comment</h3>
                         <form action="/blogs/<%= blog._id %>/comments" method="POST" class="needs-validation"
                             novalidate>
@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <h3>All Comments</h3>
                                     <% for(comment of blog.comments) { %>
-                                        <div class="card col-5 ms-3 mb-3">
+                                        <div class="card col-5 ms-3 mb-3 b-radius">
                                             <div class="card-body">
                                                 <h5 class="card-title">
                                                     @<%= comment.author.username %>

@@ -23,7 +23,7 @@ const Course = require("./models/courses");
 const Blog = require("./models/blogs");
 
 const dbUrl = process.env.ATLAS_DB_URL;
-// const dbUrl = "mongodb://127.0.0.1:27017/notesmedia";
+
 
 main()
   .then(() => {
